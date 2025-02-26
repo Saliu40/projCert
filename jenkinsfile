@@ -2,20 +2,20 @@ pipeline {
     agent any
 
     environment {
-        TEST_SERVER_IP = "192.168.56.20"  // Update with your test server IP
-        REPO_URL = "git@github.com:Saliu40/projCert.git"  // Replace with your repo
+        TEST_SERVER_IP = "172.20.20.101"  // Ensure this matches your test server's IP
+        REPO_URL = "git@github.com:Saliu40/projCert.git"
         DOCKER_IMAGE_NAME = "php-app"
         CONTAINER_NAME = "php-app-container"
     }
 
     stages {
         
-        stage('Job 1: Install Puppet Agent on Test Server1') {
+        stage('Job 1: Install Puppet Agent on Test Server') {
             steps {
                 script {
                     sh '''
-                    ssh vagrant@${172.20.20.101} "sudo apt update && sudo apt install -y puppet-agent"
-                    ssh vagrant@${172.20.20.101} "sudo systemctl start puppet && sudo systemctl enable puppet"
+                    ssh vagrant@${TEST_SERVER_IP} "sudo apt update && sudo apt install -y puppet-agent"
+                    ssh vagrant@${TEST_SERVER_IP} "sudo systemctl start puppet && sudo systemctl enable puppet"
                     '''
                 }
             }
@@ -24,23 +24,51 @@ pipeline {
         stage('Job 2: Configure Docker using Ansible') {
             steps {
                 script {
+                    // Ensure inventory file is correctly created
+                    writeFile file: 'inventory', text: "${TEST_SERVER_IP}"
+
+                    // Ensure playbook filename matches the fixed version
                     writeFile file: 'install_docker.yml', text: '''
-                    - hosts: test_server1
+                    ---
+                    - name: Install Docker on Test Server
+                      hosts: all
                       become: yes
                       tasks:
+                        - name: Install prerequisites
+                          apt:
+                            name:
+                              - apt-transport-https
+                              - ca-certificates
+                              - curl
+                              - software-properties-common
+                            state: present
+                            update_cache: yes
+
+                        - name: Add Docker GPG Key
+                          shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+                        - name: Add Docker Repository
+                          shell: echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+                        - name: Update apt cache
+                          apt:
+                            update_cache: yes
+
                         - name: Install Docker
                           apt:
-                            name: docker.io
+                            name: docker-ce
                             state: present
-                        
-                        - name: Enable Docker Service
+
+                        - name: Start Docker Service
                           service:
                             name: docker
                             state: started
                             enabled: yes
                     '''
+                    
+                    // Run Ansible playbook
                     sh '''
-                    ansible-playbook -i "${172.20.20.101}," -u vagrant --private-key ~/.vagrant.d/insecure_private_key docker-playbook.yml
+                    ansible-playbook -i inventory -u vagrant --private-key ~/.vagrant.d/insecure_private_key install_docker.yml
                     '''
                 }
             }
@@ -50,11 +78,12 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    ssh vagrant@${172.20.20.101} "git clone ${REPO_URL} ~/php-app || (cd ~/php-app && git pull)"
-                    ssh vagrant@${172.20.20.101} "cd ~/php-app && docker build -t ${DOCKER_IMAGE_NAME} ."
-                    ssh vagrant@${172.20.20.101} "docker stop ${CONTAINER_NAME} || true"
-                    ssh vagrant@${172.20.20.101} "docker rm ${CONTAINER_NAME} || true"
-                    ssh vagrant@${172.20.20.101} "docker run -d --name ${CONTAINER_NAME} -p 8080:80 ${DOCKER_IMAGE_NAME}"
+                    ssh vagrant@${TEST_SERVER_IP} "[ -d ~/php-app ] || git clone ${REPO_URL} ~/php-app"
+                    ssh vagrant@${TEST_SERVER_IP} "cd ~/php-app && git pull"
+                    ssh vagrant@${TEST_SERVER_IP} "cd ~/php-app && docker build -t ${DOCKER_IMAGE_NAME} ."
+                    ssh vagrant@${TEST_SERVER_IP} "docker stop ${CONTAINER_NAME} || true"
+                    ssh vagrant@${TEST_SERVER_IP} "docker rm ${CONTAINER_NAME} || true"
+                    ssh vagrant@${TEST_SERVER_IP} "docker run -d --name ${CONTAINER_NAME} -p 8080:80 ${DOCKER_IMAGE_NAME}"
                     '''
                 }
             }
@@ -62,13 +91,13 @@ pipeline {
 
         stage('Job 4: Cleanup on Failure') {
             when {
-                failure()
+                expression { currentBuild.result == 'FAILURE' }
             }
             steps {
                 script {
                     sh '''
-                    ssh vagrant@${172.20.20.101} "docker stop ${CONTAINER_NAME} || true"
-                    ssh vagrant@${172.20.20.101} "docker rm ${CONTAINER_NAME} || true"
+                    ssh vagrant@${TEST_SERVER_IP} "docker stop ${CONTAINER_NAME} || true"
+                    ssh vagrant@${TEST_SERVER_IP} "docker rm ${CONTAINER_NAME} || true"
                     '''
                 }
             }
