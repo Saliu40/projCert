@@ -1,0 +1,86 @@
+pipeline {
+    agent any
+
+    environment {
+        TEST_SERVER_IP = "192.168.56.20"  // Update with your test server IP
+        REPO_URL = "git@github.com:Saliu40/projCert.git"  // Replace with your repo
+        DOCKER_IMAGE_NAME = "php-app"
+        CONTAINER_NAME = "php-app-container"
+    }
+
+    stages {
+        
+        stage('Job 1: Install Puppet Agent on Test Server1') {
+            steps {
+                script {
+                    sh '''
+                    ssh vagrant@${172.20.20.101} "sudo apt update && sudo apt install -y puppet-agent"
+                    ssh vagrant@${172.20.20.101} "sudo systemctl start puppet && sudo systemctl enable puppet"
+                    '''
+                }
+            }
+        }
+
+        stage('Job 2: Configure Docker using Ansible') {
+            steps {
+                script {
+                    writeFile file: 'install_docker.yml', text: '''
+                    - hosts: test_server1
+                      become: yes
+                      tasks:
+                        - name: Install Docker
+                          apt:
+                            name: docker.io
+                            state: present
+                        
+                        - name: Enable Docker Service
+                          service:
+                            name: docker
+                            state: started
+                            enabled: yes
+                    '''
+                    sh '''
+                    ansible-playbook -i "${172.20.20.101}," -u vagrant --private-key ~/.vagrant.d/insecure_private_key docker-playbook.yml
+                    '''
+                }
+            }
+        }
+
+        stage('Job 3: Pull Code, Build, and Deploy Docker Container') {
+            steps {
+                script {
+                    sh '''
+                    ssh vagrant@${172.20.20.101} "git clone ${REPO_URL} ~/php-app || (cd ~/php-app && git pull)"
+                    ssh vagrant@${172.20.20.101} "cd ~/php-app && docker build -t ${DOCKER_IMAGE_NAME} ."
+                    ssh vagrant@${172.20.20.101} "docker stop ${CONTAINER_NAME} || true"
+                    ssh vagrant@${172.20.20.101} "docker rm ${CONTAINER_NAME} || true"
+                    ssh vagrant@${172.20.20.101} "docker run -d --name ${CONTAINER_NAME} -p 8080:80 ${DOCKER_IMAGE_NAME}"
+                    '''
+                }
+            }
+        }
+
+        stage('Job 4: Cleanup on Failure') {
+            when {
+                failure()
+            }
+            steps {
+                script {
+                    sh '''
+                    ssh vagrant@${172.20.20.101} "docker stop ${CONTAINER_NAME} || true"
+                    ssh vagrant@${172.20.20.101} "docker rm ${CONTAINER_NAME} || true"
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Deployment completed successfully!"
+        }
+        failure {
+            echo "Pipeline failed! Container removed from Test Server."
+        }
+    }
+}
