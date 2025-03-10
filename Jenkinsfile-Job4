@@ -1,0 +1,27 @@
+pipeline {
+    agent { label 'test_server1' }
+
+    environment {
+        TEST_SERVER_IP = "172.20.20.101"
+        CONTAINER_NAME = "php-app-container"
+    }
+
+    stages {
+        stage('Cleanup on Failure') {
+            steps {
+                script {
+                    sh '''
+                    ssh -o StrictHostKeyChecking=no vagrant@${TEST_SERVER_IP} "docker stop ${CONTAINER_NAME} || true"
+                    ssh -o StrictHostKeyChecking=no vagrant@${TEST_SERVER_IP} "docker rm ${CONTAINER_NAME} || true"
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "Cleanup completed!"
+        }
+    }
+}

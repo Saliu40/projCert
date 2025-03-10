@@ -1,0 +1,29 @@
+pipeline {
+    agent { label 'test_server1' }
+
+    environment {
+        TEST_SERVER_IP = "172.20.20.101"
+    }
+
+    stages {
+        stage('Install Puppet Agent on Test Server') {
+            steps {
+                script {
+                    sh '''
+                    ssh -o StrictHostKeyChecking=no vagrant@${TEST_SERVER_IP} "sudo apt update && sudo apt install -y puppet-agent"
+                    ssh -o StrictHostKeyChecking=no vagrant@${TEST_SERVER_IP} "sudo systemctl start puppet && sudo systemctl enable puppet"
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            build job: 'Job2'
+        }
+        failure {
+            echo "Job 1 Failed: Puppet Agent installation failed!"
+        }
+    }
+}
