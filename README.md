@@ -167,3 +167,54 @@ This command is to test if the master VM can Ansibly connect to the Slave Node(t
 
 ***#####Tools to Install on the Test Server1(Jenkins Slave Node)​#####***
 
+For the purpose of this Project, we need to configure the following
+tools on our Test_server  VM:​
+
+The Project Requirement State that we should Install the Following Tools Manually:​
+  -Python​
+  -OpenSSH-server​
+  -Git​
+While The Below tasks should be automated through Jenkins by
+creating a pipeline: ​
+
+​  1. Install and configure puppet agent on the slave node (Job 1) ​
+  2. Push an Ansible configuration on test server to install docker (Job 2) ​
+  3. Pull the PHP website, and the Dockerfile from the git repo and build
+      and deploy your PHP docker   container. After. (Job 3) ​
+  4. If Job 3 fails, delete the running container on Test Server.​
+
+Installations Of Java(Open JDK17), Git, Python, And OpenSSH- Server On The Test_server1(Jenkins worker Node).​
+
+<img width="641" height="340" alt="Screenshot 2025-03-03 002020" src="https://github.com/user-attachments/assets/8c1a12b6-91e1-4425-8fd7-9d22a3da0224" />
+
+***Step 2: Configuring Jenkins Master Node & Slave Nodes(Test_server)***​
+Setting up Jenkins on Master VM:​
+After Configuring Jenkins GUI & Required Plugins On MasterVM,​ We will set Up a Jenkins Node, configure it to Communicate with jenkins slave VM (Test_server).​
+
+​Seting up Slave Jenkins Node:​
+  -Create a new user for Jenkins on the slave.​
+  -Start the Jenkins agent on the slave.​
+  -Connect the slave node to Jenkins master.​
+
+
+Add SSH Credencials To Jenkins:​
+switch to Jenkins user on Ur Jenkins MasterVM, ssh-keygen to generate ssh-keys,  cd int ~ssh dir,  cat & copy the id_rsa(private_key), we use it to create credential as shwon below ​
+
+<img width="948" height="1026" alt="Screenshot 2025-02-26 111914" src="https://github.com/user-attachments/assets/92fc332e-a61a-4f5b-8653-7e94938ab7c3" />
+
+Adding Jenkins User to the Test_server(we need to add jenkin user so that jenkins running on master VM can connect to the slave node.)​
+
+<img width="390" height="471" alt="Screenshot 2025-02-26 104723" src="https://github.com/user-attachments/assets/9f8abd76-09c8-4bb2-a148-0b71203160f7" />
+
+Copy ssh-publickey from Master VM Jenkins User, to Authorized_keys under Test_server slave node ssh Directory ​
+​​
+<img width="808" height="374" alt="Screenshot 2025-02-26 115043" src="https://github.com/user-attachments/assets/f3f5590d-4b60-47b4-b942-1460f1975723" />
+
+Copy the same ssh-key created on slide19 but this time, it will be the public-key(cat id_rsa.pub, copy the keys), switch to jenkins User created on Test_server VM, chack slide 20. cd to ssh-dir, and create Authorized_keys file, paste the keys, save and exit, #change the file mode to 600 when through.​
+
+​
+Adding Jenkins Node: we go to manage Jenkins, click on Nodes, add a node and configure it as seen below, click save.​
+​
+<img width="934" height="851" alt="Screenshot 2025-02-26 113317" src="https://github.com/user-attachments/assets/06b280fd-61df-4d01-80bc-bae43258efcd" />
+
+<img width="947" height="995" alt="Screenshot 2025-02-26 113332" src="https://github.com/user-attachments/assets/26899585-c6c4-499d-9910-6f95792d487f" />
