@@ -165,5 +165,5 @@ Ansible Ping
 after those configuration is done, we run the command: ansible -I inventory.ini test_server1 –m ping.​
 This command is to test if the master VM can Ansibly connect to the Slave Node(test_server1)VM. If ansible is not properly configured, its throws an error at this stage​.
 
-***#####Tools to Install on the Test Server1(Jenkins Slave Node)​***
+***#####Tools to Install on the Test Server1(Jenkins Slave Node)​#####***
 
