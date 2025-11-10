@@ -237,3 +237,26 @@ Bash Script Was a Success, below is the console output.​
 **###Step3:** 
 configuring Jenkins to pull pipeline script from GitHub Using SSH​
 
+<img width="927" height="906" alt="Screenshot 2025-02-26 235450" src="https://github.com/user-attachments/assets/3e14daa2-8994-4fcc-b798-08aba7605e94" />
+
+First we add our VM ssh-publickey to github: cat & copy your id_rsa.pub, navigate to Github, go to profile & click on settings, click on SSH & GPG keys, click on new ssh key to add Ur VM publick keys, & give it a name.​
+
+
+Below We Create a Jenkins Credential to store SSH-Private keys​
+
+<img width="1642" height="1046" alt="Screenshot 2025-02-26 122740" src="https://github.com/user-attachments/assets/0568a1af-a6b8-4a7f-9bb9-561b848b3d87" />
+
+We cat & copy ssh id_rsa keys(Private keys) From Our MasterVm,
+we navigate to credential under manage jenkins, create a global credential, select ssh-private keys under kind.​
+Set the name of the id, the username, scroll down to click enter directly, click on add, & paste Ur private keys and create. (that’s the credential Jenkinsis  going to be using to Authenticate our project repo's URL)​.
+
+
+***###We Setup a new jenkins pipeline***
+
+<img width="1690" height="964" alt="Screenshot 2025-02-28 105216" src="https://github.com/user-attachments/assets/9a47659c-4074-4a64-abe8-d4397d510284" />
+
+On Ur jenkins Dashboard, go to new item, click on pipeline & give it a name & create, on the pipeline definition section, select 'pipeline script from scm', on the SCM, select "Git".​
+
+Go copy the ssh-urls of Ur github code $ paste it on Ur pipeline URLS section. On the credentials, select the one Uve already created on slide 27.​
+
+Note, it will throw an error, because Ur jenkins User needs a handshake with Ur Github. As such, go to Ur Jenkins VM & switch to jenkins User to run this command <git ls-remote -h paste-Ur-repo-SSH-url HEAD>. Once U hit enter, there will be promt, just type yes & that’s it. Just refresh Ur jenkins, The error message on Ur pipeline will disappear.​
