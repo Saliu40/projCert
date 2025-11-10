@@ -99,3 +99,8 @@ sudo apt-get update​
 sudo apt-get install jenkins​
 <img width="895" height="469" alt="Screenshot 2025-02-25 130100" src="https://github.com/user-attachments/assets/76341db9-3603-45ff-9fc9-02d0efcdb762" />
 Jenkins is Up & Running.
+<img width="945" height="395" alt="Screenshot 2025-02-25 131157" src="https://github.com/user-attachments/assets/91733a5c-9a14-46bc-ae0f-8a685017e017" />
+Getting the Jenkins Default password
+
+<img width="1395" height="1032" alt="Screenshot 2025-02-25 131223" src="https://github.com/user-attachments/assets/de61f601-94ed-41b4-8f64-9fadd80e93c9" />
+Accessing Jenkins Gui using MasterVM Ip & Jenkins Default port 8080, which was already defined & forwarded on the jenkinsfile. Cat, copy & paste the jenkins initial passwd.
