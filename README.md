@@ -146,3 +146,12 @@ Run the command <export ANSIBLE_CONFIG=~/ansible.cfg> so Ansible can recorgnized
 ​
 <img width="522" height="133" alt="Screenshot 2025-02-26 101413" src="https://github.com/user-attachments/assets/37e584cf-ed4b-4821-9ed3-872b9af8b36b" />
 
+Configuring SSH Keys As Ansible Uses Secure Shell to execute its tasks
+
+<img width="522" height="694" alt="Screenshot 2025-02-26 101842" src="https://github.com/user-attachments/assets/025a486e-5def-464b-9a85-053292e1da06" />
+
+SSH-Keygen, use the command to generate sshkeys on the master VM, 
+cat the public key and copy it to Authorized_keys file inside ssh directory onour slave nodes(test_server1) as this will enable a Ansible handshake between both VMs.​
+
+<img width="553" height="276" alt="Screenshot 2025-02-26 101851" src="https://github.com/user-attachments/assets/97926bce-bd8f-479d-828b-a597b5a0a22e" />
+either copy the public key maually or you automate it
