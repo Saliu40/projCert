@@ -218,3 +218,20 @@ Adding Jenkins Node: we go to manage Jenkins, click on Nodes, add a node and con
 <img width="934" height="851" alt="Screenshot 2025-02-26 113317" src="https://github.com/user-attachments/assets/06b280fd-61df-4d01-80bc-bae43258efcd" />
 
 <img width="947" height="995" alt="Screenshot 2025-02-26 113332" src="https://github.com/user-attachments/assets/26899585-c6c4-499d-9910-6f95792d487f" />
+
+If correctly configured, the test_server node should be online as shown below, which means Jenkins Master & Slave Nodes has been configured successfully.​
+
+<img width="1906" height="637" alt="Screenshot 2025-02-26 113636" src="https://github.com/user-attachments/assets/fbd1d1bc-42b3-41e4-8ff8-3573da9ab7cf" />
+
+Time to Create & Run a Freestyle Project To Test Jenkins Master & Slave Nodes:​
+from Ur jenkins dashboard, create a new freestyle project to run a shell script as shown below to test communication between the two VM​.
+
+<img width="1910" height="948" alt="Screenshot 2025-02-26 123234" src="https://github.com/user-attachments/assets/b32485d4-15d7-4d96-8a36-072b2004c58a" />
+<img width="1919" height="1024" alt="Screenshot 2025-02-26 123252" src="https://github.com/user-attachments/assets/c3cbd941-18a7-4652-bce4-ea65623de12f" />
+
+Bash Script Was a Success, below is the console output.​
+<img width="1516" height="686" alt="Screenshot 2025-02-26 123206" src="https://github.com/user-attachments/assets/567b89cd-b3a7-460c-9488-aa3e2e8f8ce7" />
+<img width="957" height="893" alt="Screenshot 2025-02-26 232023" src="https://github.com/user-attachments/assets/f0321aec-649b-45e3-ba3b-4dfb1a78ddd5" />
+
+
+
