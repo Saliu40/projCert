@@ -260,3 +260,16 @@ On Ur jenkins Dashboard, go to new item, click on pipeline & give it a name & cr
 Go copy the ssh-urls of Ur github code $ paste it on Ur pipeline URLS section. On the credentials, select the one Uve already created on slide 27.​
 
 Note, it will throw an error, because Ur jenkins User needs a handshake with Ur Github. As such, go to Ur Jenkins VM & switch to jenkins User to run this command <git ls-remote -h paste-Ur-repo-SSH-url HEAD>. Once U hit enter, there will be promt, just type yes & that’s it. Just refresh Ur jenkins, The error message on Ur pipeline will disappear.​
+
+
+
+***###Step 4: Creating a Webhook for GitHub - Jenkins Automation.​***
+
+A GitHub to Jenkins Webhook is a mechanism that allows Jenkins to automatically trigger a job whenever there is a code change in a GitHub repository. This removes the need for manual builds and ensures continuous integration (CI).​
+
+To achieve this, First we make sure Jenkins instance(VM) security group (inbound rule) allows port 8080 from anywhere. i.e any ipv4 or ipv6.​
+
+<img width="682" height="143" alt="Screenshot 2025-03-03 150701" src="https://github.com/user-attachments/assets/6a9ae499-aafc-4530-922d-c8e32b5de42e" />
+
+Since we use Vagrantfile to Provision our Jenkins VM, We Fowarded port 8080, check line 20 image above Which means allowing port 8080 from anywhere​.
+​
