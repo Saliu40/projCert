@@ -104,3 +104,9 @@ Getting the Jenkins Default password
 
 <img width="1395" height="1032" alt="Screenshot 2025-02-25 131223" src="https://github.com/user-attachments/assets/de61f601-94ed-41b4-8f64-9fadd80e93c9" />
 Accessing Jenkins Gui using MasterVM Ip & Jenkins Default port 8080, which was already defined & forwarded on the jenkinsfile. Cat, copy & paste the jenkins initial passwd.
+
+<img width="1705" height="958" alt="Screenshot 2025-02-25 132507" src="https://github.com/user-attachments/assets/967530a0-6742-446b-bae4-88464d7ed8a0" />
+<img width="1920" height="1080" alt="Screenshot (26)" src="https://github.com/user-attachments/assets/421f6caf-c85f-4173-8cd2-2bf14047a5d7" />
+Jenkins Default GUI​
+<img width="1792" height="953" alt="Screenshot 2025-02-25 133453" src="https://github.com/user-attachments/assets/bd77f6be-f8b6-4b77-8590-d01b6bd7377e" />
+Installing Jenkins Default Plugins, & Creating  Admin User.​
