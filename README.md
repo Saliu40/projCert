@@ -133,12 +133,16 @@ Run the command: 'sudo nano /etc/ssh/sshd_config' to make adjustment on the sshd
 ###Repeat same Process on the Test_server1 VM​
 
 Ansible Inventory File
+
 <img width="621" height="428" alt="Screenshot 2025-02-26 100719" src="https://github.com/user-attachments/assets/d34c6a69-a5f8-463f-842e-a559e21bbe7b" />
+
 Either use nano or vim file editor to create an inventory.ini file (host) where we define our nodes ip (test_server1), save and exit​.
 
 Defining Ansible Configuration File(Ansible.cfg)
 <img width="575" height="509" alt="Screenshot 2025-02-26 101348" src="https://github.com/user-attachments/assets/40477591-df98-4752-a4b8-83fcad974f74" />
+
 We defined our Ansible configuration file on the master VM, <nano ~/ansible.cfg> we use the file to define Inventory location, to control ssh behavior, set privileges, & the remote user location. Save the file $ exit​
 Run the command <export ANSIBLE_CONFIG=~/ansible.cfg> so Ansible can recorgnized it as its config file while performing any operation​
-​<img width="522" height="133" alt="Screenshot 2025-02-26 101413" src="https://github.com/user-attachments/assets/37e584cf-ed4b-4821-9ed3-872b9af8b36b" />
+​
+<img width="522" height="133" alt="Screenshot 2025-02-26 101413" src="https://github.com/user-attachments/assets/37e584cf-ed4b-4821-9ed3-872b9af8b36b" />
 
