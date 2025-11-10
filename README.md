@@ -234,5 +234,6 @@ Bash Script Was a Success, below is the console output.​
 
 <img width="957" height="893" alt="Screenshot 2025-02-26 232023" src="https://github.com/user-attachments/assets/f0321aec-649b-45e3-ba3b-4dfb1a78ddd5" />
 
-
+**###Step3:** 
+configuring Jenkins to pull pipeline script from GitHub Using SSH​
 
