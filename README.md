@@ -110,3 +110,35 @@ Installing Jenkins Default Plugins, & Creating  Admin User.​
 <img width="1920" height="1080" alt="Screenshot (26)" src="https://github.com/user-attachments/assets/421f6caf-c85f-4173-8cd2-2bf14047a5d7" />
 Jenkins Default GUI​
 <img width="1792" height="953" alt="Screenshot 2025-02-25 133453" src="https://github.com/user-attachments/assets/bd77f6be-f8b6-4b77-8590-d01b6bd7377e" />
+
+Installing two Plugins Necessary for this Project​
+<img width="945" height="901" alt="Screenshot 2025-02-25 142314" src="https://github.com/user-attachments/assets/29559574-ad43-45d8-ab99-b8ce0656e896" />
+
+Ansible and Git Installation on the Master VM​
+we use Bash script to install Ansible, while we use command to install git 
+sudo apt install git –y to install git​
+<img width="929" height="484" alt="Screenshot 2025-02-25 144626" src="https://github.com/user-attachments/assets/642f2f04-6af6-4c58-92bd-9322da4508e8" />
+Ansible & Git Installed.
+
+
+
+Configuring Ansible on the Master VM To Connect with the Test_server1(jenkins slave node)​
+<img width="888" height="976" alt="Screenshot 2025-02-26 100337" src="https://github.com/user-attachments/assets/5bb9b01d-ba19-429c-a591-18f5d8ad76ba" />
+Since ansible work with ssh, we need to configure our 2VMs so they can be able to talk to each other. 
+Run the command: 'sudo nano /etc/ssh/sshd_config' to make adjustment on the sshd_config file.​
+  -Set Permitrootlogin to yes​
+  -Set publikeyAuthentication to yes​
+  -Set Permitrootlogin to yes​
+  Save it and exit the file​
+###Repeat same Process on the Test_server1 VM​
+
+Ansible Inventory File
+<img width="621" height="428" alt="Screenshot 2025-02-26 100719" src="https://github.com/user-attachments/assets/d34c6a69-a5f8-463f-842e-a559e21bbe7b" />
+Either use nano or vim file editor to create an inventory.ini file (host) where we define our nodes ip (test_server1), save and exit​.
+
+Defining Ansible Configuration File(Ansible.cfg)
+<img width="575" height="509" alt="Screenshot 2025-02-26 101348" src="https://github.com/user-attachments/assets/40477591-df98-4752-a4b8-83fcad974f74" />
+We defined our Ansible configuration file on the master VM, <nano ~/ansible.cfg> we use the file to define Inventory location, to control ssh behavior, set privileges, & the remote user location. Save the file $ exit​
+Run the command <export ANSIBLE_CONFIG=~/ansible.cfg> so Ansible can recorgnized it as its config file while performing any operation​
+​<img width="522" height="133" alt="Screenshot 2025-02-26 101413" src="https://github.com/user-attachments/assets/37e584cf-ed4b-4821-9ed3-872b9af8b36b" />
+
