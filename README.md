@@ -68,3 +68,34 @@ Updating the VMs Package nmanager to the latest​
 Vagrant SSh master​
 Vagrant ssh test_server1​
 I used the above command to ssh into the 2VMs & Update their package managers with the command: <sudo apt update && sudo apt upgrade>
+
+Tools to Install on the Master VM(Jenkins Master Node)​
+For the purpose of this Project, we need to
+configure the following tools on our master VM:​
+Jenkins​
+Ansible​
+Git​
+Required Jenkins plugins (Build Pipeline Plugin, Post-build Task Plugin).
+
+#Codes for Configuring Jenkins on the Master VM
+sudo apt update​
+
+sudo apt install fontconfig openjdk-17-jre​
+
+java -version​
+
+openjdk version "17.0.13" 2024-10-15​
+
+OpenJDK Runtime Environment (build 17.0.13+11-Debian-2)​
+
+OpenJDK 64-Bit Server VM (build 17.0.13+11-Debian-2, mixed mode, sharing)​
+
+sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \​ https://pkg.jenkins.io/debian/jenkins.io-2023.key​
+
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \​ https://pkg.jenkins.io/debian binary/ | sudo tee \​/etc/apt/sources.list.d/jenkins.list > /dev/null​
+
+sudo apt-get update​
+
+sudo apt-get install jenkins​
+<img width="895" height="469" alt="Screenshot 2025-02-25 130100" src="https://github.com/user-attachments/assets/76341db9-3603-45ff-9fc9-02d0efcdb762" />
+Jenkins is Up & Running.
