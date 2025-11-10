@@ -52,7 +52,19 @@ Step 5: Setting up Jenkins Pipelines (Slides 39 - 59)​
 
   -Job 4: If Job 3 fails, delete the running container on the test server​
 
-Step 6: The End​
+Step 6: The End​.
 
 
-​
+Step 1: Setting up Project Environment​
+<img width="1182" height="980" alt="Screenshot 2025-02-25 122811" src="https://github.com/user-attachments/assets/4e9ea494-0270-417a-bdb0-62520ca0b0ec" />
+Above is a Dabian Vagrantfile we used to Launched two VM, one as Jenkins Master, the other as Test_server(Jenkins slave node)​
+
+The two VMs as Master & Test_server
+<img width="964" height="984" alt="Screenshot 2025-02-25 122832" src="https://github.com/user-attachments/assets/1521afc0-bc0c-4bb6-89a5-990691cc2849" />
+Vagrant Up is a command we used to Provision the VMs after configuring my Vagrantfile.​ Vagrant Status is a command to check if the VMs are Up and running after Provisioning. The Two VMs are Up and Running 
+
+Updating the VMs Package nmanager to the latest​
+<img width="1845" height="851" alt="Screenshot 2025-02-25 123404" src="https://github.com/user-attachments/assets/bf1751ac-7bed-4f2c-a114-6b390d7448ba" />
+Vagrant SSh master​
+Vagrant ssh test_server1​
+I used the above command to ssh into the 2VMs & Update their package managers with the command: <sudo apt update && sudo apt upgrade>
