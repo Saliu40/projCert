@@ -154,4 +154,16 @@ SSH-Keygen, use the command to generate sshkeys on the master VM,
 cat the public key and copy it to Authorized_keys file inside ssh directory onour slave nodes(test_server1) as this will enable a Ansible handshake between both VMs.​
 
 <img width="553" height="276" alt="Screenshot 2025-02-26 101851" src="https://github.com/user-attachments/assets/97926bce-bd8f-479d-828b-a597b5a0a22e" />
+
 either copy the public key maually or you automate it
+
+
+Ansible Ping
+
+<img width="578" height="606" alt="Screenshot 2025-02-26 103745" src="https://github.com/user-attachments/assets/3c66c580-6d33-41dc-8da0-5995c1e46ecd" />
+
+after those configuration is done, we run the command: ansible -I inventory.ini test_server1 –m ping.​
+This command is to test if the master VM can Ansibly connect to the Slave Node(test_server1)VM. If ansible is not properly configured, its throws an error at this stage​.
+
+***#####Tools to Install on the Test Server1(Jenkins Slave Node)​***
+
