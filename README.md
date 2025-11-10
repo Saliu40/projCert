@@ -40,20 +40,17 @@ Step 2: Configuring the Jenkins Master Node and Jenkins Slave Node
 Step 3: Configuring Jenkins to pull the pipeline script from GitHub using
 SSH (Slides 32 - 34)​
 
-Step 4: Creating a Webhook for GitHub-Jenkins Automation (Slides 35
-- 38)​
+Step 4: Creating a Webhook for GitHub-Jenkins Automation (Slides 3 - 38)​
 
 Step 5: Setting up Jenkins Pipelines (Slides 39 - 59)​
 
-Job 1: Install and configure the Puppet agent on the slave node.​
+  -Job 1: Install and configure the Puppet agent on the slave node.​
 
-Job 2: Push an Ansible configuration to the test server to install
-Docker.​
+  -Job 2: Push an Ansible configuration to the test server to install Docker.​
 
-Job 3: Pull the PHP website and Dockerfile from the Git repository,
-build the Docker image, and deploy the PHP container.​
+  -Job 3: Pull the PHP website and Dockerfile from the Git repository, build the Docker image, and deploy the PHP container.​
 
-Job 4: If Job 3 fails, delete the running container on the test server​
+  -Job 4: If Job 3 fails, delete the running container on the test server​
 
 Step 6: The End​
 
