@@ -284,4 +284,40 @@ Since our Jenkins uses a vagrant Vm, we register and install ngrok, so it can ex
 On the Triggers section of the plipeline as shown above, we checked Github hook trigger for GitScm polling. GitHub hook trigger for GITScm polling GitHub hook trigger for GITScm polling​.
 
 ***###Cloaning the source Repo to my VScode, once a change is made to the repo, it
-triggered my jenkins pipeline to run.###***
+triggered my jenkins pipeline to run Automatedly.###***
+<img width="925" height="900" alt="Screenshot 2025-11-11 101923" src="https://github.com/user-attachments/assets/3145439e-2fe9-458e-afcf-b1376083a144" />
+
+***Step 5: Setting Up Jenkins Pipelines​***
+I split my Jenkinsfile into separate pipeline files, each running in sequence, i  created four individual Jenkinsfiles, each representing a separate Jenkins Pipeline Job but in a sequence oder of execusion:​
+  Job 1: Install Puppet Agent​
+  Job 2: Configure Docker using Ansible​
+  Job 3: Pull Code, Build, and Deploy Docker Container​
+  Job 4: Cleanup on Failure (If Needed)​
+
+Job1: Installing Puppet Agent​ Automating Task to Install and configure puppet agent on the slave node (test_server). ​
+
+<img width="1917" height="1017" alt="Screenshot 2025-03-04 111654" src="https://github.com/user-attachments/assets/25bfa776-3407-4ebe-a760-c1444fdc95e5" />
+
+<img width="1919" height="971" alt="Screenshot 2025-03-04 111727" src="https://github.com/user-attachments/assets/36bafbca-24af-4132-8db1-0eebf82e1943" />
+
+<img width="1641" height="993" alt="Screenshot 2025-03-04 111830" src="https://github.com/user-attachments/assets/2c8f8ad1-ef3e-4887-a38c-e53e29fc0016" />
+
+Jenkinsfile-Job1:​
+this pipeline script is defined to execute the job on my test_server1(jenkins Slave node earlier configured), this is to install puppet agent on the slave node defined in the jenkins, once successful it trigered the 'Job2' to run​
+
+<img width="1399" height="639" alt="Screenshot 2025-03-04 113129" src="https://github.com/user-attachments/assets/b5d06098-2e0f-44d5-9170-2387cba5f7f4" />
+
+Job1: Jenkins Console output​ Job1 was successful, puppet agent was Automatedly installed on the test_server node​
+<img width="1007" height="842" alt="Screenshot 2025-02-28 230932" src="https://github.com/user-attachments/assets/842d248f-a901-47c9-b988-0693bbe9b229" />
+####All the Jenkinsfiles are locaed inside this repo, i configured jenkins to automatedly accesses this repo, fetch the jenkins file, run the instructions, and run the job on the worker node(test_server), note that all the segmented jenkinsfile are configured to run after one another sequencially after a code change which is possible due to the webhook earlier configured.
+
+
+
+
+
+
+
+
+
+
+
