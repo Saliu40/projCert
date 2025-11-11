@@ -309,9 +309,12 @@ this pipeline script is defined to execute the job on my test_server1(jenkins Sl
 
 Job1: Jenkins Console output​ Job1 was successful, puppet agent was Automatedly installed on the test_server node​
 <img width="1007" height="842" alt="Screenshot 2025-02-28 230932" src="https://github.com/user-attachments/assets/842d248f-a901-47c9-b988-0693bbe9b229" />
+####NOte: as seen above, build jenkins pipelines for individual Jobs from 1-4. Jenkinsfiles are defined to run one after another, from Jobe1-Job4
 ####All the Jenkinsfiles are locaed inside this repo, i configured jenkins to automatedly accesses this repo, fetch the jenkins file, run the instructions, and run the job on the worker node(test_server), note that all the segmented jenkinsfile are configured to run after one another sequencially after a code change which is possible due to the webhook earlier configured.
 
-
+Jenkins CICD Completed​ 
+Once there's a commit and push to this project Git Repo, the webhook automatically triggered this pipelines to run.​
+<img width="1919" height="761" alt="Screenshot 2025-03-02 112440" src="https://github.com/user-attachments/assets/de88f64b-2786-4911-8792-9e62983c480e" />
 
 
 
