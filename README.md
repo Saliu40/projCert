@@ -277,3 +277,11 @@ We configured a webhook on Github to store the Jenkins Urls, so jenkins job can 
 
 <img width="1236" height="946" alt="Screenshot 2025-02-26 225228" src="https://github.com/user-attachments/assets/5a9506b0-ff81-410b-aec4-dfef10a78860" />
 ​
+<img width="1651" height="1035" alt="Screenshot 2025-11-11 101342" src="https://github.com/user-attachments/assets/77d5c82d-8387-4e09-81b1-150a2d31ea9f" />
+
+Since our Jenkins uses a vagrant Vm, we register and install ngrok, so it can expose our jenkins ip for incoming traffic.​ We run this command <ngrok http 8080 > to expose jenkins port. The output is what we used on webhook payload URL section. After which we add webhook to the repo.​
+
+On the Triggers section of the plipeline as shown above, we checked Github hook trigger for GitScm polling. GitHub hook trigger for GITScm polling GitHub hook trigger for GITScm polling​.
+
+***###Cloaning the source Repo to my VScode, once a change is made to the repo, it
+triggered my jenkins pipeline to run.###***
