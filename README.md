@@ -273,3 +273,7 @@ To achieve this, First we make sure Jenkins instance(VM) security group (inbound
 
 Since we use Vagrantfile to Provision our Jenkins VM, We Fowarded port 8080, check line 20 image above Which means allowing port 8080 from anywhere​.
 ​
+We configured a webhook on Github to store the Jenkins Urls, so jenkins job can trigger when changes are made to the repo.
+
+<img width="1236" height="946" alt="Screenshot 2025-02-26 225228" src="https://github.com/user-attachments/assets/5a9506b0-ff81-410b-aec4-dfef10a78860" />
+​
